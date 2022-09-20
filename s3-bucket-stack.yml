@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: C360-GA-TEST
+Outputs:
+  BucketName:
+    Value: !Ref S3Bucket
+    Description: S3 Bucket Name
+  BucketARN:
+    Value: !GetAtt S3Bucket.Arn
+    Description: S3 Bucket ARN

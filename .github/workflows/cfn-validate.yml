@@ -1,0 +1,19 @@
+# This workflow will use aws cli on the runner to validate cloudformation templates in the repository
+name: CloudFormation Validate Template
+
+on: [push, pull_request]
+
+jobs:
+  validate:
+
+    runs-on: c360
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: validate-template
+      run: |
+        for FILE in $(find . -type f -regextype posix-egrep -regex "\./[^\.].*\.(yaml|yml|json)" -print); 
+        do
+          echo $FILE
+          aws cloudformation validate-template --region us-west-2 --template-body file://$FILE;
+        done 
